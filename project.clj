@@ -14,6 +14,8 @@
                  [ysera "1.1.0"]
                  [reagent "0.7.0"]]
 
+  :jvm-opts ["--add-modules" "java.xml.bind"]
+  
   :plugins [[lein-figwheel "0.5.14"]
             [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
 

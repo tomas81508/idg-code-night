@@ -7,22 +7,25 @@
   [:div
    [:h1 {:style {:text-align "center"}}
     "Game of life"]
-   [:div
+   [:div {:style {:display          "flex"
+                  :flex-direction   "column"
+                  :width            "190vw"
+                  :height           "190vw"
+                  :background-color "lightgray"}}
     (let [size 10]
       (map (fn [y]
              [:div {:key   y
-                    :style {:display "flex"}}
+                    :style {:display        "flex"
+                            :flex           1
+                            :flex-direction "row"}}
               (map (fn [x]
                      [:div {:key   x
                             :on-click (fn []
                                         (trigger-event {:name :cell-click
                                                         :data [x y]}))
                             :style {:position         "relative"
-                                    :display          "inline-block"
-                                    :width            (str (/ 100 size) "%")
                                     :border           "1px solid white"
-                                    :background-color "lightgray"
-                                    :padding-bottom   (str (/ 100 size) "%")}}
+                                    :flex             1}}
                       [:div {:style {:position         "absolute"
                                      :background-color "tomato"
                                      :top              "12.5%"

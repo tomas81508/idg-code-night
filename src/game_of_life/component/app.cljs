@@ -37,5 +37,8 @@
                    (range size))])
            (range size)))]
    [:button {:on-click (fn []
+                         (trigger-event {:name :prev-generation}))}
+    "PREV"]
+   [:button {:on-click (fn []
                          (trigger-event {:name :next-generation}))}
     "NEXT"]])

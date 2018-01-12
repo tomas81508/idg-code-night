@@ -3,7 +3,6 @@
 
 (defn app-component [{state         :state
                       trigger-event :trigger-event}]
-  (println state)
   [:div
    [:h1 {:style {:text-align "center"}}
     "Game of life"]

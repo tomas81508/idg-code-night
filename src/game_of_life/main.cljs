@@ -15,21 +15,23 @@
 
 (defonce app-state-atom (atom (list initial-state)))
 
-(defn handle-event [{name :name data :data}]
+(defn handle-event! [{name :name data :data}]
+  (println "Name" name data)
   (cond (= name :next-generation)
-        (swap! app-state-atom (fn [state]
-                                (conj state (next-generation (first state)))))
+        (swap! app-state-atom (fn [app-state]
+                                (conj app-state (next-generation (first app-state)))))
 
         (= name :cell-click)
-        (swap! app-state-atom toggle-cell data)
+        (swap! app-state-atom (fn [app-state]
+                                (conj app-state (toggle-cell (first app-state) data))))
 
         (= name :prev-generation)
         (when (> (count @app-state-atom) 1)
-          (swap! app-state-atom (fn [atom] (drop 1 atom))))))
+          (swap! app-state-atom (fn [app-state] (drop 1 app-state))))))
 
 (defn render! []
   (render-component [app-component {:state         (first @app-state-atom)
-                                    :trigger-event handle-event}]
+                                    :trigger-event handle-event!}]
                     (. js/document (getElementById "app"))))
 
 (add-watch app-state-atom

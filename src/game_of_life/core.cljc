@@ -1,16 +1,6 @@
 (ns game-of-life.core
   (:require [ysera.test :refer [is= is is-not]]))
 
-; A function declaration
-; defn [name doc-string? attr-map? [params*] prepost-map? body]
-;
-; if [test then else?]
-; (if (= 3 3) "That's true" "This will never happen") => "That's true"
-(if (= 1 2) 1 3)
-; pos? [num]
-; (pos? 5) => true
-; (pos? -1) => false
-
 (defn abs                                                   ; name
   "The absolute value of a number."                         ; doc-string?
   {:test (fn []
@@ -22,32 +12,6 @@
   (if (pos? x)
     x
     (- x)))
-
-
-; Higher order functions
-; map [f coll*]
-;
-; (map inc [1 3 7]) => [2 4 8]
-;
-; (map (fn [x] (inc x)) [1 3 7]) => [2 4 8]
-;
-; (map inc [1 3 7] [2 4 9]) => Wrong number of args (2) passed to inc
-;
-; (map + [1 3 7] [2 4 9]) => [3 7 16]
-;
-; (map (fn [x y] (+ x y)) [1 3 7] [2 4 9]) => [3 7 16]
-;
-;
-; apply [f coll]
-;
-; (apply max [4 2 3 -1]) => 4
-;
-; (max 4 2 3 -1) => 4
-
-(map inc [1 3 4])
-(map (fn [x] (+ x 1)) [1 3 4])
-
-(map + [1 2 3] [2 5 7])
 
 (defn distance
   "Calculates the distance between two cells."
@@ -71,16 +35,6 @@
            (is (neighbours? [0 0] [1 1])))}
   [cell-1 cell-2]
   (= (distance cell-1 cell-2) 1))
-
-;; To map with an index, use map-indexed [f coll]
-;; then f is two variable function of index and item.
-
-(apply + (map inc (filter even? [1 2 3 4 5 6 7 8])))
-
-(->> [1 2 3 4 5 6 7 8]
-     (filter even?)
-     (map inc)
-     (apply +))
 
 (defn create-state
   "Creates the state model for the game."
@@ -136,7 +90,7 @@
        (filter (fn [c]
                  (cell-alive? state c)))
        (into #{})))
-;
+
 ;; 1 Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 ;; 2 Any live cell with two or three live neighbours lives on to the next generation.
 ;; 3 Any live cell with more than three live neighbours dies, as if by overpopulation.
@@ -193,14 +147,3 @@
             (if (cell-alive? state cell)
               (clojure.set/difference living-cells #{cell})
               (conj living-cells cell)))))
-
-
-
-
-
-
-
-
-
-
-
